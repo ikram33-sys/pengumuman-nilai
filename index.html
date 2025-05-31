@@ -81,7 +81,31 @@
 
     // Ganti URL ini dengan URL Web App Google Apps Script kamu
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxJXStyV1S40lyXPQkrHC7MhxRGUwBS71G7JzYc2hdi69yPjad8A_4TcbmmivdFQHWM/exec";
+   
+    // Waktu mulai pengumuman dalam UTC, sesuaikan sesuai jadwal pengumuman
+    const waktuMulai = new Date('2025-06-01T01:00:00Z').getTime();
 
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = waktuMulai - now;
+
+      if (diff <= 0) {
+        countdownEl.textContent = '';
+        btnCek.disabled = false;
+      } else {
+        btnCek.disabled = true;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        countdownEl.textContent = `Pengumuman dibuka dalam ${days} hari ${hours} jam ${minutes} menit ${seconds} detik`;
+      }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    
     btnCek.addEventListener('click', async () => {
       const nama = inputNama.value.trim();
       const kelas = inputKelas.value.trim();
