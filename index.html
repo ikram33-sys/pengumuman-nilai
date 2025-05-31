@@ -86,9 +86,7 @@
       }
 
       try {
-        const response = await fetch(
-          `https://script.google.com/macros/s/AKfycbxJXStyV1S40lyXPQkrHC7MhxRGUwBS71G7JzYc2hdi69yPjad8A_4TcbmmivdFQHWM/exec?nama=${encodeURIComponent(nama)}&kelas=${encodeURIComponent(kelas)}`
-        );
+        const response = await fetch(`https://script.google.com/macros/s/AKfycbxJXStyV1S40lyXPQkrHC7MhxRGUwBS71G7JzYc2hdi69yPjad8A_4TcbmmivdFQHWM/exec?nama=${encodeURIComponent(nama)}&kelas=${encodeURIComponent(kelas)}`);
         const data = await response.json();
 
         if (data.error) {
