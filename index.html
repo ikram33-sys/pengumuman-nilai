@@ -60,7 +60,7 @@
     <p><strong>Nilai:</strong> <span id="pdfNilai"></span></p>
     <p><strong>Keterangan:</strong> <span id="pdfStatus" class="font-bold"></span></p>
     <p class="mt-6">
-      Telah dinyatakan <strong id="pdfStatusText" class="uppercase"></strong> berdasarkan hasil evaluasi akademik.
+      Telah dinyatakan <strong id="pdfStatusText" class="uppercase"></strong> berdasarkan hasil nilai asli ujian semester genap tahun pelajaran 2024/2025, pada mata pelajaran TLJ.
     </p>
     <p class="mt-6">
       SMKN 1 BUAY BAHUGA<br /><small>Tanggal: <span id="tanggalCetak"></span></small>
@@ -87,7 +87,7 @@
 
       try {
         const response = await fetch(
-          `https://SCRIPT_ID_EXEC_URL_HERE?nama=${encodeURIComponent(nama)}&kelas=${encodeURIComponent(kelas)}`
+          `https://script.google.com/macros/s/AKfycbxJXStyV1S40lyXPQkrHC7MhxRGUwBS71G7JzYc2hdi69yPjad8A_4TcbmmivdFQHWM/exec?nama=${encodeURIComponent(nama)}&kelas=${encodeURIComponent(kelas)}`
         );
         const data = await response.json();
 
