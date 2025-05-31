@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pengumuman Kelulusan</title>
+  <title>Pengumuman Nilai Ujian Semester Genap Mapel TLJ TP. 2024/2025</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -59,13 +59,13 @@
   </style>
 </head>
 <body>
-  <h1>Pengumuman Kelulusan Siswa</h1>
+  <h1>Pengumuman Nilai Asli Ujian Semester Genap Mata Pelajaran Teknologi Layanan Jaringan</h1>
 
   <label for="nama">Nama Lengkap:</label>
-  <input type="text" id="nama" placeholder="Masukkan nama lengkap" />
+  <input type="text" id="nama" placeholder="Masukkan nama lengkap (contoh: Abdul Mu'ti)" />
 
   <label for="kelas">Kelas:</label>
-  <input type="text" id="kelas" placeholder="Masukkan kelas (contoh: XI IPA)" />
+  <input type="text" id="kelas" placeholder="Masukkan kelas (contoh: XI TKJ 2)" />
 
   <button id="btnCek">Cek Nilai</button>
 
@@ -133,7 +133,7 @@
       const doc = new window.jspdf.jsPDF();
 
       doc.setFontSize(18);
-      doc.text('Pengumuman Kelulusan Siswa', 105, 20, null, null, 'center');
+      doc.text('Pengumuman Nilai Ujian Semester Genap Mata Pelajaran Teknologi Layanan Jaringan', 105, 20, null, null, 'center');
 
       doc.setFontSize(12);
       doc.text(`Nama       : ${data.nama}`, 20, 40);
@@ -142,7 +142,7 @@
       doc.text(`Keterangan : ${data.status}`, 20, 70);
 
       doc.setFontSize(10);
-      doc.text('Terima kasih telah menggunakan sistem pengumuman online.', 20, 90);
+      doc.text('Teknik Komputer dan Jaringan SMKN 1 Buay Bahuga.', 20, 90);
 
       doc.save(`Pengumuman_${data.nama.replace(/\s+/g, '_')}.pdf`);
     }
