@@ -3,74 +3,104 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pengumuman Nilai Ujian Semester Genap Mapel TLJ TP. 2024/2025</title>
+  <title>Pengumuman Nilai Ujian TLJ 2024/2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f0f4f8;
+      font-family: 'Roboto', sans-serif;
+      background-color: #eef3f8;
+      color: #333;
+      margin: 0;
       padding: 20px;
-      max-width: 480px;
-      margin: auto;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 500px;
+      width: 100%;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
     h1 {
-      text-align: center;
+      font-size: 20px;
       color: #0a3d62;
+      text-align: center;
+      margin-bottom: 25px;
     }
     label {
-      display: block;
+      font-weight: 500;
+      color: #34495e;
       margin-top: 15px;
-      font-weight: bold;
-      color: #1e3799;
+      display: block;
     }
-    input {
+    input[type="text"] {
       width: 100%;
-      padding: 8px;
-      font-size: 1em;
-      margin-top: 5px;
-      border-radius: 4px;
+      padding: 10px;
+      margin-top: 6px;
       border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
     }
     button {
       margin-top: 20px;
-      padding: 12px 20px;
+      padding: 12px;
+      width: 100%;
       background-color: #0a3d62;
-      color: white;
-      font-size: 1em;
+      color: #fff;
       border: none;
-      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover:not(:disabled) {
+      background-color: #074173;
     }
     button:disabled {
-      background-color: #778beb;
+      background-color: #95a5a6;
       cursor: not-allowed;
+    }
+    #error {
+      color: #c0392b;
+      font-weight: 600;
+      margin-top: 15px;
     }
     #result {
       margin-top: 25px;
-      padding: 15px;
-      background: white;
-      border-radius: 6px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      display: none;
     }
-    #error {
-      color: red;
-      font-weight: bold;
-      margin-top: 15px;
+    #result h2 {
+      margin-top: 0;
+      color: #27ae60;
+    }
+    #btnPrint {
+      margin-top: 20px;
+      background-color: #2c3e50;
     }
   </style>
 </head>
 <body>
-  <h1>Pengumuman Nilai Asli Ujian Semester Genap<br> Mata Pelajaran Teknologi Layanan Jaringan</br></h1>
+  <div class="container">
+    <h1>Pengumuman Nilai Ujian Semester Genap<br>Mata Pelajaran TLJ TP 2024/2025</h1>
 
-  <label for="nama">Nama Lengkap:</label>
-  <input type="text" id="nama" placeholder="Masukkan nama lengkap (contoh: Abdul Mu'ti)" />
+    <label for="nama">Nama Lengkap:</label>
+    <input type="text" id="nama" placeholder="Contoh: Abdul Mu'ti" />
 
-  <label for="kelas">Kelas:</label>
-  <input type="text" id="kelas" placeholder="Masukkan kelas (contoh: 11 TKJ 2)" />
+    <label for="kelas">Kelas:</label>
+    <input type="text" id="kelas" placeholder="Contoh: 11 TKJ 2" />
 
-  <button id="btnCek">Cek Nilai</button>
+    <button id="btnCek">Cek Nilai</button>
 
-  <div id="error"></div>
-  <div id="result" style="display:none;"></div>
+    <div id="error"></div>
+    <div id="result"></div>
+  </div>
 
   <script>
     const btnCek = document.getElementById('btnCek');
@@ -79,19 +109,18 @@
     const resultDiv = document.getElementById('result');
     const errorDiv = document.getElementById('error');
 
-    // Ganti URL ini dengan URL Web App Google Apps Script kamu
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxJXStyV1S40lyXPQkrHC7MhxRGUwBS71G7JzYc2hdi69yPjad8A_4TcbmmivdFQHWM/exec";
-  
+
     btnCek.addEventListener('click', async () => {
       const nama = inputNama.value.trim();
       const kelas = inputKelas.value.trim();
 
       errorDiv.textContent = '';
       resultDiv.style.display = 'none';
-      resultDiv.textContent = '';
+      resultDiv.innerHTML = '';
 
       if (!nama || !kelas) {
-        errorDiv.textContent = 'Nama dan Kelas harus diisi.';
+        errorDiv.textContent = 'Nama dan Kelas wajib diisi.';
         return;
       }
 
@@ -100,13 +129,12 @@
 
       try {
         const response = await fetch(`${WEB_APP_URL}?nama=${encodeURIComponent(nama)}&kelas=${encodeURIComponent(kelas)}`);
-        if (!response.ok) throw new Error('Gagal mengambil data');
         const data = await response.json();
 
         if (data.error) {
           errorDiv.textContent = data.error;
         } else {
-          const html = `
+          resultDiv.innerHTML = `
             <h2>Hasil Pengumuman</h2>
             <p><strong>Nama:</strong> ${data.nama}</p>
             <p><strong>Kelas:</strong> ${data.kelas}</p>
@@ -114,15 +142,12 @@
             <p><strong>Keterangan:</strong> ${data.status}</p>
             <button id="btnPrint">Cetak PDF</button>
           `;
-          resultDiv.innerHTML = html;
           resultDiv.style.display = 'block';
 
-          document.getElementById('btnPrint').addEventListener('click', () => {
-            cetakPDF(data);
-          });
+          document.getElementById('btnPrint').addEventListener('click', () => cetakPDF(data));
         }
-      } catch (err) {
-        errorDiv.textContent = 'Terjadi kesalahan saat pengambilan data.';
+      } catch (error) {
+        errorDiv.textContent = 'Terjadi kesalahan saat menghubungi server.';
       } finally {
         btnCek.disabled = false;
         btnCek.textContent = 'Cek Nilai';
@@ -131,25 +156,22 @@
 
     function cetakPDF(data) {
       const doc = new window.jspdf.jsPDF();
-
-      doc.setFontSize(18);
-      doc.text('Pengumuman Nilai Asli Ujian Semester Genap Tahun Pelajaran 2024/2025', 105, 20, null, null, 'center');
-      doc.text('Mata Pelajaran Teknologi Layanan Jaringan', 105, 20, null, null, 'center');
+      doc.setFontSize(16);
+      doc.text('Pengumuman Nilai Ujian Semester Genap TP 2024/2025', 105, 20, null, null, 'center');
+      doc.text('Mata Pelajaran Teknologi Layanan Jaringan', 105, 30, null, null, 'center');
 
       doc.setFontSize(12);
-      doc.text(`Nama       : ${data.nama}`, 20, 40);
-      doc.text(`Kelas      : ${data.kelas}`, 20, 50);
-      doc.text(`Nilai      : ${data.nilai}`, 20, 60);
-      doc.text(`Keterangan : ${data.status}`, 20, 70);
+      doc.text(`Nama       : ${data.nama}`, 20, 50);
+      doc.text(`Kelas      : ${data.kelas}`, 20, 60);
+      doc.text(`Nilai      : ${data.nilai}`, 20, 70);
+      doc.text(`Keterangan : ${data.status}`, 20, 80);
 
       doc.setFontSize(10);
-      doc.text('Teknik Komputer dan Jaringan SMKN 1 Buay Bahuga.', 20, 90);
+      doc.text('Jurusan TKJ - SMKN 1 Buay Bahuga', 20, 100);
 
-      doc.save(`Pengumuman_${data.nama.replace(/\s+/g, '_')}.pdf`);
+      doc.save(`Nilai_${data.nama.replace(/\s+/g, '_')}.pdf`);
     }
   </script>
-
-  <!-- Include jsPDF library CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
