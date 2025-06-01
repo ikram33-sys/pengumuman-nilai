@@ -59,7 +59,7 @@
   </style>
 </head>
 <body>
-  <h1>Pengumuman Nilai Asli Ujian Semester Genap Mata Pelajaran Teknologi Layanan Jaringan</h1>
+  <h1>Pengumuman Nilai Asli Ujian Semester Genap<br> Mata Pelajaran Teknologi Layanan Jaringan</br></h1>
 
   <label for="nama">Nama Lengkap:</label>
   <input type="text" id="nama" placeholder="Masukkan nama lengkap (contoh: Abdul Mu'ti)" />
@@ -133,7 +133,8 @@
       const doc = new window.jspdf.jsPDF();
 
       doc.setFontSize(18);
-      doc.text('Pengumuman Nilai Ujian Semester Genap Mata Pelajaran Teknologi Layanan Jaringan', 105, 20, null, null, 'center');
+      doc.text('Pengumuman Nilai Asli Ujian Semester Genap Tahun Pelajaran 2024/2025', 105, 20, null, null, 'center');
+      doc.text('Mata Pelajaran Teknologi Layanan Jaringan', 105, 20, null, null, 'center');
 
       doc.setFontSize(12);
       doc.text(`Nama       : ${data.nama}`, 20, 40);
