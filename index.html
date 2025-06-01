@@ -6,7 +6,7 @@
   <title>Pengumuman Nilai TLJ 2024/2025</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    * {
+   * {
       box-sizing: border-box;
     }
     body {
@@ -186,25 +186,24 @@
   </style>
 </head>
 <body>
-  <div class="card" role="main" aria-label="Form Pengumuman Nilai Ujian TLJ">
+  <div class="card">
     <h1>Pengumuman Nilai Ujian TLJ</h1>
     <div class="subhead">Tahun Pelajaran 2024/2025 - Semester Genap</div>
-    <div id="countdown" role="status" aria-live="polite">Pengumuman tersedia dalam: <span id="timer"></span></div>
+    <div id="countdown">Pengumuman tersedia dalam: <span id="timer"></span></div>
 
     <label for="nama">Nama Lengkap:</label>
-    <input type="text" id="nama" placeholder="Contoh: Abdul Mu'ti" aria-required="true" />
+    <input type="text" id="nama" placeholder="Contoh: Abdul Mu'ti" />
 
     <label for="kelas">Kelas:</label>
-    <input type="text" id="kelas" placeholder="Contoh: 11 TKJ 2" aria-required="true" />
+    <input type="text" id="kelas" placeholder="Contoh: 11 TKJ 2" />
 
-    <button id="btnCek" aria-label="Cek Nilai Ujian">Cek Nilai</button>
+    <button id="btnCek">Cek Nilai</button>
 
-    <div id="error" role="alert" aria-live="assertive"></div>
-    <div id="result" aria-live="polite"></div>
+    <div id="error"></div>
+    <div id="result"></div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
   <script>
     const btnCek = document.getElementById('btnCek');
     const inputNama = document.getElementById('nama');
@@ -215,6 +214,12 @@
 
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxJXStyV1S40lyXPQkrHC7MhxRGUwBS71G7JzYc2hdi69yPjad8A_4TcbmmivdFQHWM/exec";
     const startTime = new Date('2025-06-01T19:30:00').getTime();
+
+    const jadwalRemedial = {
+      "11 TKJ 2": "Senin, 2 Juni 2025 pukul 08.00 WIB di Lab 1 TKJ",
+      "11 TKJ 3": "Selasa, 3 Juni 2025 pukul 08.00 WIB di Lab 1 TKJ",
+      "11 TKJ 4": "Rabu, 4 Juni 2025 pukul 08.00 WIB di Lab 1 TKJ"
+    };
 
     const countdownInterval = setInterval(() => {
       const now = new Date().getTime();
@@ -256,12 +261,19 @@
         if (data.error) {
           errorDiv.textContent = data.error;
         } else {
+          let remedialInfo = '';
+          if (data.status.toLowerCase() === 'tidak lulus') {
+            const jadwal = jadwalRemedial[data.kelas] || 'Silakan Menemui Guru Mata Pelajaran di LAB 1';
+            remedialInfo = `<p style="color:#e74c3c; font-weight:600;">Remedial: ${jadwal}</p>`;
+          }
+
           resultDiv.innerHTML = `
             <h2>Hasil Pengumuman</h2>
             <p><strong>Nama:</strong> ${data.nama}</p>
             <p><strong>Kelas:</strong> ${data.kelas}</p>
             <p><strong>Nilai:</strong> ${data.nilai}</p>
             <p><strong>Keterangan:</strong> ${data.status}</p>
+            ${remedialInfo}
             <button id="btnPrint">Cetak PDF</button>
           `;
           resultDiv.style.display = 'block';
@@ -278,16 +290,26 @@
     async function cetakPDF(data) {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
+      const remedial = jadwalRemedial[data.kelas] || 'Silakan Menemui Guru Mata Pelajaran di LAB 1.';
+
       doc.setFontSize(16);
       doc.text('Pengumuman Nilai Ujian Semester Genap TP 2024/2025', 105, 20, null, null, 'center');
       doc.text('Mata Pelajaran Teknologi Layanan Jaringan', 105, 30, null, null, 'center');
       doc.setFontSize(12);
+      doc.setTextColor(0, 0, 0);
       doc.text(`Nama       : ${data.nama}`, 20, 50);
       doc.text(`Kelas      : ${data.kelas}`, 20, 60);
       doc.text(`Nilai      : ${data.nilai}`, 20, 70);
       doc.text(`Keterangan : ${data.status}`, 20, 80);
+
+      if (data.status.toLowerCase() === 'tidak lulus') {
+        doc.setTextColor(200, 0, 0);
+        doc.text(`Remedial   : ${remedial}`, 20, 90);
+      }
+
       doc.setFontSize(10);
-      doc.text('Jurusan TKJ - SMKN 1 Buay Bahuga', 20, 100);
+      doc.setTextColor(0, 0, 0);
+      doc.text('Jurusan TKJ - SMKN 1 Buay Bahuga', 20, 110);
       doc.save(`Nilai_${data.nama.replace(/\s+/g, '_')}.pdf`);
     }
   </script>
