@@ -3,104 +3,207 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pengumuman Nilai Ujian TLJ 2024/2025</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <title>Pengumuman Nilai TLJ 2024/2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #eef3f8;
-      color: #333;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f4f6f9 0%, #eef1f5 100%);
+      color: #2c3e50;
       margin: 0;
       padding: 20px;
       display: flex;
       justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      transition: background 0.3s ease, color 0.3s ease;
     }
-    .container {
-      max-width: 500px;
+    .card {
+      background: #ffffff;
       width: 100%;
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 480px;
+      padding: 32px 24px;
+      border-radius: 20px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
     }
     h1 {
-      font-size: 20px;
-      color: #0a3d62;
       text-align: center;
-      margin-bottom: 25px;
+      font-size: 24px;
+      color: #1e3799;
+      margin-bottom: 6px;
+    }
+    .subhead {
+      text-align: center;
+      font-size: 14px;
+      color: #57606f;
+      margin-bottom: 24px;
+    }
+    #countdown {
+      background: #fff3cd;
+      border: 1px solid #ffeeba;
+      color: #856404;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 500;
+      margin-bottom: 20px;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
     label {
-      font-weight: 500;
-      color: #34495e;
-      margin-top: 15px;
+      font-weight: 600;
+      margin-top: 16px;
       display: block;
+      color: #2d3436;
     }
     input[type="text"] {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ced6e0;
       margin-top: 6px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
+      font-size: 15px;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
     button {
-      margin-top: 20px;
-      padding: 12px;
+      margin-top: 24px;
       width: 100%;
-      background-color: #0a3d62;
-      color: #fff;
+      padding: 14px;
       border: none;
+      background-color: #1e3799;
+      color: #fff;
+      font-weight: 600;
       font-size: 16px;
-      font-weight: bold;
-      border-radius: 6px;
+      border-radius: 10px;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
     button:hover:not(:disabled) {
-      background-color: #074173;
+      background-color: #2746b3;
     }
     button:disabled {
-      background-color: #95a5a6;
+      background-color: #a5b1c2;
       cursor: not-allowed;
     }
     #error {
-      color: #c0392b;
+      color: #e74c3c;
       font-weight: 600;
       margin-top: 15px;
+      text-align: center;
     }
     #result {
       margin-top: 25px;
       padding: 20px;
-      background-color: #f9f9f9;
-      border: 1px solid #ddd;
+      background-color: #f8f9fa;
+      border-left: 4px solid #1e90ff;
       border-radius: 10px;
       display: none;
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
     #result h2 {
       margin-top: 0;
-      color: #27ae60;
+      color: #2ecc71;
+      font-size: 18px;
     }
     #btnPrint {
       margin-top: 20px;
       background-color: #2c3e50;
     }
+    @media (max-width: 480px) {
+      .card {
+        padding: 24px 16px;
+        border-radius: 16px;
+      }
+      h1 {
+        font-size: 20px;
+      }
+      button {
+        font-size: 15px;
+      }
+    }
+
+    /* DARK MODE */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: linear-gradient(135deg, #121212 0%, #1f1f1f 100%);
+        color: #d1d5db;
+      }
+      .card {
+        background: #1e1e2f;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+      }
+      h1 {
+        color: #a5b4fc;
+      }
+      .subhead {
+        color: #9ca3af;
+      }
+      #countdown {
+        background: #3b3b3b;
+        border: 1px solid #6b7280;
+        color: #d1d5db;
+      }
+      label {
+        color: #e0e7ff;
+      }
+      input[type="text"] {
+        background-color: #2c2c3e;
+        border: 1px solid #4b4b6a;
+        color: #e0e7ff;
+      }
+      input[type="text"]::placeholder {
+        color: #9ca3af;
+      }
+      #error {
+        color: #f87171;
+      }
+      #result {
+        background-color: #2c2c3e;
+        border-left-color: #6366f1;
+        color: #d1d5db;
+      }
+      #result h2 {
+        color: #86efac;
+      }
+      button {
+        background-color: #6366f1;
+        color: #fff;
+      }
+      button:hover:not(:disabled) {
+        background-color: #4f46e5;
+      }
+      button:disabled {
+        background-color: #818cf8;
+        cursor: not-allowed;
+      }
+      #btnPrint {
+        background-color: #374151;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Pengumuman Nilai Ujian Semester Genap<br>Mata Pelajaran TLJ TP 2024/2025</h1>
+  <div class="card" role="main" aria-label="Form Pengumuman Nilai Ujian TLJ">
+    <h1>Pengumuman Nilai Ujian TLJ</h1>
+    <div class="subhead">Tahun Pelajaran 2024/2025 - Semester Genap</div>
+    <div id="countdown" role="status" aria-live="polite">Pengumuman tersedia dalam: <span id="timer"></span></div>
 
     <label for="nama">Nama Lengkap:</label>
-    <input type="text" id="nama" placeholder="Contoh: Abdul Mu'ti" />
+    <input type="text" id="nama" placeholder="Contoh: Abdul Mu'ti" aria-required="true" />
 
     <label for="kelas">Kelas:</label>
-    <input type="text" id="kelas" placeholder="Contoh: 11 TKJ 2" />
+    <input type="text" id="kelas" placeholder="Contoh: 11 TKJ 2" aria-required="true" />
 
-    <button id="btnCek">Cek Nilai</button>
+    <button id="btnCek" aria-label="Cek Nilai Ujian">Cek Nilai</button>
 
-    <div id="error"></div>
-    <div id="result"></div>
+    <div id="error" role="alert" aria-live="assertive"></div>
+    <div id="result" aria-live="polite"></div>
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
     const btnCek = document.getElementById('btnCek');
@@ -108,8 +211,27 @@
     const inputKelas = document.getElementById('kelas');
     const resultDiv = document.getElementById('result');
     const errorDiv = document.getElementById('error');
+    const countdownEl = document.getElementById('timer');
 
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxJXStyV1S40lyXPQkrHC7MhxRGUwBS71G7JzYc2hdi69yPjad8A_4TcbmmivdFQHWM/exec";
+    const startTime = new Date('2025-06-01T12:55:00').getTime();
+
+    const countdownInterval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = startTime - now;
+
+      if (distance > 0) {
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        countdownEl.textContent = `${hours}j ${minutes}m ${seconds}d`;
+        btnCek.disabled = true;
+      } else {
+        clearInterval(countdownInterval);
+        document.getElementById('countdown').style.display = 'none';
+        btnCek.disabled = false;
+      }
+    }, 1000);
 
     btnCek.addEventListener('click', async () => {
       const nama = inputNama.value.trim();
@@ -143,7 +265,6 @@
             <button id="btnPrint">Cetak PDF</button>
           `;
           resultDiv.style.display = 'block';
-
           document.getElementById('btnPrint').addEventListener('click', () => cetakPDF(data));
         }
       } catch (error) {
@@ -154,24 +275,21 @@
       }
     });
 
-    function cetakPDF(data) {
-      const doc = new window.jspdf.jsPDF();
+    async function cetakPDF(data) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
       doc.setFontSize(16);
       doc.text('Pengumuman Nilai Ujian Semester Genap TP 2024/2025', 105, 20, null, null, 'center');
       doc.text('Mata Pelajaran Teknologi Layanan Jaringan', 105, 30, null, null, 'center');
-
       doc.setFontSize(12);
       doc.text(`Nama       : ${data.nama}`, 20, 50);
       doc.text(`Kelas      : ${data.kelas}`, 20, 60);
       doc.text(`Nilai      : ${data.nilai}`, 20, 70);
       doc.text(`Keterangan : ${data.status}`, 20, 80);
-
       doc.setFontSize(10);
       doc.text('Jurusan TKJ - SMKN 1 Buay Bahuga', 20, 100);
-
       doc.save(`Nilai_${data.nama.replace(/\s+/g, '_')}.pdf`);
     }
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
